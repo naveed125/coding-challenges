@@ -6,85 +6,66 @@ class ListNode(object):
 
 
 class Solution(object):
+
+    def convertToNum(self, head):
+
+        lst = []
+        while head:
+            lst.append(head.val)
+            head = head.next
+
+        ret = 0
+        i = 1
+        while lst:
+            ret += lst.pop(0) * i
+            i *= 10
+
+        return ret
+
+    def buildFromNum(self, num):
+
+        curr = None
+        head = None
+        nsl = list(str(num))
+
+        while nsl:
+
+            digit = nsl.pop()
+            node = ListNode(digit)
+
+            if head is None:
+                head = node
+                curr = node
+            else:
+                curr.next = node
+                curr = curr.next
+
+        return head
+
     def addTwoNumbers(self, l1, l2):
         """
         :type l1: ListNode
         :type l2: ListNode
         :rtype: ListNode
         """
-
-        s1, s2 = [], []
-
-        head = l1
-        while head:
-            s1.append(head.val)
-            head = head.next
-
-        head = l2
-        while head:
-            s2.append(head.val)
-            head = head.next
-
-        count = max(len(s1), len(s2))
-
-        carry = 0
-        current = None
-        head = None
-        for i in range(count):
-
-            lhs = 0
-            if len(s1) > 0:
-                lhs = s1.pop()
-
-            rhs = 0
-            if len(s2) > 0:
-                rhs = s2.pop()
-
-            total = lhs + rhs + carry
-            if total > 9:
-                carry = 1
-                total = total % 10
-            else:
-                carry = 0
-
-            temp = ListNode(total)
-            if head is None:
-                head = temp
-
-            if current is not None:
-                current.next = temp
-
-            current = temp
-
-        if carry > 0:
-            current.next = ListNode(1)
-
-        return head
+        return self.buildFromNum(self.convertToNum(l1) + self.convertToNum(l2))
 
 
 def main():
-    h1 = None
-    h2 = None
 
-    h1 = build([5, 6, 4])
-    h2 = build([2, 4, 3])
-
-    # h1 = build([1, 2])
-    # h2 = build([1, 2])
-
-    h1 = build([5])
-    h2 = build([5])
+    h1 = buildFromList([5, 6, 4])
+    h2 = buildFromList([2, 4, 3])
 
     sol = Solution()
     ret = sol.addTwoNumbers(h1, h2)
     dump(ret)
 
 
-def build(fromList):
+def buildFromList(lst):
 
     head = None
     prev = None
-    for i in fromList:
+    for i in lst:
 
         new = ListNode(i)
 
