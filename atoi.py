@@ -15,10 +15,10 @@ class Solution:
             ret = "-"
             s = s[1:]
 
-        if re.sub("[0-9]", "", s[0:1]) != "":
+        if not s:
             return 0
 
-        if not s:
+        if re.sub("[0-9]", "", s[0:1]) != "":
             return 0
 
         for i in list(s):
@@ -31,5 +31,4 @@ class Solution:
 
 
 if __name__ == '__main__':
-    # print(Solution().myAtoi(sys.argv[1]))
-    print(Solution().myAtoi("-"))
+    print(Solution().myAtoi(sys.argv[1]))
