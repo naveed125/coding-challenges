@@ -5,11 +5,16 @@ class ListNode(object):
 
 
 class LinkedList(object):
-
+    #
+    # Create a new empty linked list
+    #
     def __init__(self):
         self.head = None
         self.cur = None
 
+    #
+    # Append a node to the linked
+    #
     def append(self, x):
 
         node = ListNode(x)
@@ -18,32 +23,29 @@ class LinkedList(object):
             self.head = node
             self.cur = node
         else:
+            save = self.cur.next
             self.cur.next = node
             self.cur = node
+            self.cur.next = save
 
-    @staticmethod
-    def buildFromList(lst):
+    #
+    # Build a linked list from a list (iterable)
+    #
+    def buildFromList(self, lst):
 
-        head = None
-        prev = None
         for i in lst:
+            self.append(i)
 
-            new = ListNode(i)
+        return self
 
-            if head is None:
-                head = new
-
-            if prev is None:
-                prev = new
-            else:
-                prev.next = new
-                prev = new
-
-        return head
-
+    #
+    # Dumps the data on screen
+    #
     @staticmethod
-    def dump(head):
-        while head is not None:
-            print(head.val)
-            head = head.next
+    def dump(target):
+
+        cur = target
+        while cur is not None:
+            print(cur.val)
+            cur = cur.next
 

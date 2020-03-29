@@ -21,39 +21,39 @@ class Solution(object):
         else:
             head = l2
 
-        ll = LinkedList()
+        target = LinkedList()
 
         while True:
             if not l1 and not l2:
                 break
 
             if not l1:
-                ll.append(l2.val)
+                target.append(l2.val)
                 l2 = l2.next
                 continue
 
             if not l2:
-                ll.append(l1.val)
+                target.append(l1.val)
                 l1 = l1.next
                 continue
 
             if l1.val < l2.val:
-                ll.append(l1.val)
+                target.append(l1.val)
                 l1 = l1.next
             else:
-                ll.append(l2.val)
+                target.append(l2.val)
                 l2 = l2.next
 
-        return ll.head
+        return target.head
 
 
 if __name__ == '__main__':
 
-    list1 = LinkedList.buildFromList([1, 3, 5])
-    list2 = LinkedList.buildFromList([])
+    list1 = LinkedList().buildFromList([1, 3, 5])
+    list2 = LinkedList().buildFromList([2, 4, 6])
 
     # LinkedList.dump(list1)
     # LinkedList.dump(list2)
 
-    ret = Solution().mergeTwoLists(list1, list2)
+    ret = Solution().mergeTwoLists(list1.head, list2.head)
     LinkedList.dump(ret)

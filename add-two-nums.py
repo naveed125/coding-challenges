@@ -1,8 +1,4 @@
-# Definition for singly-linked list.
-class ListNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+from utils.LinkedList import *
 
 
 class Solution(object):
@@ -53,38 +49,11 @@ class Solution(object):
 
 def main():
 
-    h1 = buildFromList([5, 6, 4])
-    h2 = buildFromList([2, 4, 3])
+    l1 = LinkedList().buildFromList([5, 6, 4])
+    l2 = LinkedList().buildFromList([2, 4, 3])
 
-    sol = Solution()
-    ret = sol.addTwoNumbers(h1, h2)
-    dump(ret)
-
-
-def buildFromList(lst):
-
-    head = None
-    prev = None
-    for i in lst:
-
-        new = ListNode(i)
-
-        if head is None:
-            head = new
-
-        if prev is None:
-            prev = new
-        else:
-            prev.next = new
-            prev = new
-
-    return head
-
-
-def dump(head):
-    while head is not None:
-        print(head.val)
-        head = head.next
+    ret = Solution().addTwoNumbers(l1.head, l2.head)
+    LinkedList.dump(ret)
 
 
 if __name__ == '__main__':
