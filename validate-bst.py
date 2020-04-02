@@ -9,68 +9,38 @@ class Solution(object):
         if not root:
             return success
 
-        return self.helper(root)
+        success, _min, _max = self.isValidNode(root)
+        return success
 
-    def helper(self, node):
+    def isValidNode(self, node):
 
-        print("checking node", node.val)
+        l_min, l_max, r_min, r_max, = node.val, node.val, node.val, node.val
 
         if node.left:
-            (success, _max) = self.checkLeft(node.left)
+            success, l_min, l_max = self.isValidNode(node.left)
             if not success:
-                return False
+                return False, 0, 0
 
-            if _max >= node.val:
-                return False
+            if l_max >= node.val:
+                return False, 0, 0
 
         if node.right:
-            (success, _min) = self.checkRight(node.right)
+            success, r_min, r_max = self.isValidNode(node.right)
             if not success:
-                return False
+                return False, 0, 0
 
-            if _min <= node.val:
-                return False
+            if r_min <= node.val:
+                return False, 0, 0
 
-        return True
-
-    def checkLeft(self, node):
-
-        print("checking left", node.val)
-        _max = None
-        if not node.left:
-            return True, node.val
-
-        (success, _max) = self.helper(node.left)
-
-        if not success:
-            return False, _max
-
-        if node.val <= _max:
-            return False, _max
-
-        return True, node.val
-
-    def checkRight(self, node):
-
-        print("checking right", node.val)
-        _min = None
-        if not node.right:
-            return True, node.val
-
-        (success, _min) = self.helper(node.right)
-
-        if not success:
-            return False, _min
-
-        if node.val <= _min:
-            return False, _min
-
-        return True, node.val
+        _min, _max = min(node.val, l_min), max(node.val, r_max)
+        return True, _min, _max
 
 
 if __name__ == '__main__':
 
     bt = BinaryTree()
-    # print(Solution().isValidBST(bt.fromList([5,1,6,None,None,3,7])))
-    # print(Solution().isValidBST(bt.fromList([3, 1, 2])))
+    # print(Solution().isValidBST(bt.fromList([5, 1, 6, None, None, 3, 7])))
+    # print(Solution().isValidBST(bt.fromList([1])))
+    # print(Solution().isValidBST(bt.fromList([2, 1, 3])))
+    # print(Solution().isValidBST(bt.fromList([5, 1, 3])))
     print(Solution().isValidBST(bt.fromList([3,1,5,0,2,4,6])))
