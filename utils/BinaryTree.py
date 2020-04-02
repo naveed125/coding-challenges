@@ -18,7 +18,7 @@ class BinaryTree(object):
     #
     def fromList(self, _list, index=0):
 
-        if index >= len(_list) or not _list[index]:
+        if index >= len(_list) or _list[index] is None:
             return None
 
         # print("index:{}, val:{}".format(index, _list[index]))
